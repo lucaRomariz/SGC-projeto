@@ -1,0 +1,101 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Table `Usuario`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Usuario` (
+  `idUsuario` INT NOT NULL,
+  `nome` VARCHAR(45) NULL,
+  `senha` VARCHAR(45) NULL,
+  `perfil` CHAR(20) NULL,
+  PRIMARY KEY (`idUsuario`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Cliente`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Cliente` (
+  `idCliente` INT NOT NULL,
+  `nome` VARCHAR(45) NULL,
+  `cpf` CHAR(11) NULL,
+  `email` VARCHAR(60) NULL,
+  `telefone` CHAR(9) NULL,
+  `endereco` VARCHAR(45) NULL,
+  PRIMARY KEY (`idCliente`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Venda`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Venda` (
+  `idVenda` INT NOT NULL,
+  `data` VARCHAR(10) NULL,
+  `valor_total` DECIMAL NULL,
+  `Usuario_idUsuario` INT NOT NULL,
+  `Cliente_idCliente` INT NOT NULL,
+  PRIMARY KEY (`idVenda`),
+  INDEX `fk_Venda_Usuario_idx` (`Usuario_idUsuario` ASC) VISIBLE,
+  INDEX `fk_Venda_Cliente1_idx` (`Cliente_idCliente` ASC) VISIBLE,
+  CONSTRAINT `fk_Venda_Usuario`
+    FOREIGN KEY (`Usuario_idUsuario`)
+    REFERENCES `Usuario` (`idUsuario`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Venda_Cliente1`
+    FOREIGN KEY (`Cliente_idCliente`)
+    REFERENCES `Cliente` (`idCliente`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Produto`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Produto` (
+  `idProduto` INT NOT NULL,
+  `nome` VARCHAR(45) NULL,
+  `preco` DECIMAL NULL,
+  `estoque` INT NULL,
+  PRIMARY KEY (`idProduto`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Itens_Venda`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Itens_Venda` (
+  `idItens_Venda` INT NOT NULL,
+  `quantidade` INT NULL,
+  `preco_unitario` DECIMAL NULL,
+  `Venda_idVenda` INT NOT NULL,
+  `Produto_idProduto` INT NOT NULL,
+  PRIMARY KEY (`idItens_Venda`),
+  INDEX `fk_Itens_Venda_Venda1_idx` (`Venda_idVenda` ASC) VISIBLE,
+  INDEX `fk_Itens_Venda_Produto1_idx` (`Produto_idProduto` ASC) VISIBLE,
+  CONSTRAINT `fk_Itens_Venda_Venda1`
+    FOREIGN KEY (`Venda_idVenda`)
+    REFERENCES `Venda` (`idVenda`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Itens_Venda_Produto1`
+    FOREIGN KEY (`Produto_idProduto`)
+    REFERENCES `Produto` (`idProduto`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
