@@ -122,7 +122,7 @@ O projeto está sendo versionado no GitHub para controle de versões e colabora�
 | Nome | GitHub |
 |------|--------|
 | Luca Romariz | https://github.com/lucaRomariz |
-| Miguel Rocha  | https:// github.com/miguelsilva |
+| Miguel Rocha  | https://github.com/MiguelSilvaRocha|
 
 ---
 
