@@ -122,8 +122,7 @@ O projeto está sendo versionado no GitHub para controle de versões e colabora�
 | Nome | GitHub |
 |------|--------|
 | Luca Romariz | https://github.com/lucaRomariz |
-| Integrante  | — |
-| Integrante  | — |
+| Miguel Rocha  | https:// github.com/miguelsilva |
 
 ---
 
